@@ -132,6 +132,30 @@ def change_salary(employees_info):
 
 
 
+def delete_employee(employees_info):
+  target_employee=input("Enter the ID of the employee to be deleted: ")
+  if target_employee in employees_info: 
+    del employees_info[target_employee]
+    print('Target Employee have bee deleted successfully')
+    with open('users.txt', 'w') as file:
+          #to add the updates to the file: 
+          file.write("")
+          for id in employees_info:
+            values = employees_info[id]
+            username = values['username']
+            gender = values['gender']            #checking id and deleting: biog O(1)
+                                                  #writing data to file: O(N)
+            timestamp = values['timestamp']
+            salary = values['salary']
+            employee_data= id + ", " + username + ", " + timestamp+ ", " + gender + ", " + str(salary) + "\n"
+
+            with open("users.txt", "a") as file:
+             file.write(employee_data)
+
+   #if id inserted was not found:
+  else:
+    print('Target employee is not found, please try again!')
+
 
 
 
