@@ -46,6 +46,54 @@ def display_statistics(employees_info):
       females += 1
   print("Number of male employees is:", males)
   print("Number of female employees is:", females)
+  
+  
+ef add_employee(employees_info):
+    added_username = input("Enter new username: ")
+    added_salary = int(input("Enter new salary: "))
+    added_gender = input("Enter new gender: ")
+
+#to increment new id:
+    ids = list(employees_info.keys())
+    id = ids[len(ids)-1]
+    id = id[-3:]
+    id = '{:03d}'.format(int(id) + 1)    
+    new_id = "emp" + id
+#autoincrement date: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
+    input_date = datetime.today().strftime('%Y%m%d')
+#add the new employee to the dictionary
+    employees_info[new_id] = {
+        'username': added_username,
+        'gender': added_gender,
+        'salary': added_salary,
+        'timestamp': input_date                     #Run time: bio O(N) depending on nb of employees
+    }
+#print the data:
+    print("New Employee Data: ")
+    print("new id: " + new_id)
+    print("username: " + added_username)
+    print("gender: " + added_gender)
+    print("input date: " + input_date)
+    print("Salary: " + str(added_salary))
+    
+
+
+#to add the new employee information to the text file: https://pynative.com/python-save-dictionary-to-file/
+    new_employee = new_id + ", " + added_username + ", " + input_date + ", " + added_gender + ", " + str(added_salary) +"\n"
+    with open("users.txt", "a") as file:
+        file.write(new_employee)
+        print('New employee was added successfully to file. ')
+
+
+#the system should display all the employees registered in the system ordered by date (Today, Yesterday, etc).BY SORTING:
+def sorted_employee(employees_info):
+#https://www.freecodecamp.org/news/sort-dictionary-by-value-in-python/
+   sorted_employees = sorted( employees_info.items(),key=lambda x: datetime.strptime(x[1]['timestamp'], '%Y%m%d')) 
+   reverse=True
+   sorted_dict = dict(sorted_employees)
+                                                        #Big O(N)
+   print(sorted_dict)
+   
 
 
 
