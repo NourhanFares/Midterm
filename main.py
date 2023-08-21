@@ -231,9 +231,6 @@ def salary_raise(employees_info):
 
 
 
-
-
-
 #when admin has to choose an option in range 1-7
 choice = None
 while choice != 7:
