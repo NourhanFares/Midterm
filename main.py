@@ -156,6 +156,45 @@ def delete_employee(employees_info):
   else:
     print('Target employee is not found, please try again!')
 
+def salary_raise(employees_info):
+   id_for_raise = input("Enter the ID of employee who's salary is to be raised: ")
+   
+ #and the raise percentage
+#check if id inputed is inside the dict
+#initialize new salary
+   if id_for_raise in employees_info:
+     raise_percent=float(input("Enter percentage for salary raise: "))
+     new_salary=0
+ #check if raise is in normal range and not a random number  
+ #update new salary if yes
+     if 0 <=raise_percent<= 100: 
+         print("Salary have been raised "+ str(raise_percent) + '%')
+         old_salary= employees_info[id_for_raise]['salary']
+         amount_raised= (raise_percent* old_salary)/100
+         new_salary= amount_raised+old_salary
+         print("New salary for "+ id_for_raise + " is now " + str(new_salary))
+     else:
+         print('Invalid Input, please enter a number between 0-100')   
+
+     employees_info[id_for_raise]['salary'] = new_salary
+     #to update in file:   
+     with open('users.txt', 'w') as file:
+                file.write("")  
+                for id_employee in employees_info:
+                    values = employees_info[id_employee]
+                    username = values['username']
+                    gender = values['gender']         #checking id and updating salary : o(1)
+                    timestamp = values['timestamp']      #adding data to file: O(N)
+                    salary = values['salary']
+                  
+                    employee_data = id_employee + ", " + username + ", " + timestamp + ", " + gender + ", " + str(salary) + "\n"
+                    file.write(employee_data)
+
+   else:    
+     print('Invalid input, ID not found, please try again')
+
+     
+
 
 
 
