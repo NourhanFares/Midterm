@@ -94,6 +94,45 @@ def sorted_employee(employees_info):
                                                         #Big O(N)
    print(sorted_dict)
    
+   
+def sorted_employee(employees_info):
+#https://www.freecodecamp.org/news/sort-dictionary-by-value-in-python/
+   sorted_employees = sorted( employees_info.items(),key=lambda x: datetime.strptime(x[1]['timestamp'], '%Y%m%d')) 
+   reverse=True
+   sorted_dict = dict(sorted_employees)
+                                                        #Big O(N)
+   print(sorted_dict)
+   
+#the system should allow the admin to change the salary ofan employee by specifying his/her Id. The system should prompt the admin for the Employee ID and for the salary. 
+def change_salary(employees_info):
+  employee_id=input("To change salary, specify employee id: ")
+#If the employee is found, then the salary is changed.
+  if employee_id in employees_info:
+        new_salary=int(input("Add the new salary: "))
+        employees_info[employee_id]['salary'] = new_salary
+        with open('users.txt', 'w') as file:       #checking existance of employee ID and updating salary O(1)
+          #to add the updated salary to the file:        # OVERALL: Biog O(N) n is nb f employees
+          file.write("")
+          for id in employees_info:
+            values = employees_info[id]
+            username = values['username']
+            gender = values['gender']
+            timestamp = values['timestamp']
+            salary = values['salary']
+            employee_data= id + ", " + username + ", " + timestamp+ ", " + gender + ", " + str(salary) + "\n"
+
+            with open("users.txt", "a") as file:
+             file.write(employee_data)
+          
+            
+        print("Employee salary changed into: " + str(new_salary))
+#if id is nor found:
+  else:
+    print("Invalid ID")
+
+
+
+
 
 
 
